@@ -1,9 +1,10 @@
 {
   "name": "samara-joias-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "API do projeto Samara Joias",
+  "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "jest"
   },
   "keywords": [],

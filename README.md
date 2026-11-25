@@ -1,126 +1,162 @@
-# Samara Joias — Catálogo e API
+Samara Joias — Catálogo e API
 
-Projeto de catálogo virtual da Samara Joias, desenvolvido com HTML, CSS, JavaScript e Node.js/Express. A API disponibiliza os produtos, controla o carrinho e registra a finalização de compras.
+Projeto acadêmico de catálogo virtual da Samara Joias, desenvolvido com
+HTML, CSS, JavaScript e Node.js/Express.
 
-## Funcionalidades implementadas
+A aplicação disponibiliza um catálogo de produtos e uma API REST para
+cadastro, login, gerenciamento do carrinho e finalização de compras.
 
-- Listagem de produtos com preço e estoque.
-- Pesquisa de produtos no catálogo.
-- Adição e consulta de itens no carrinho.
-- Validação da quantidade solicitada conforme o estoque disponível.
-- Finalização da compra com PIX, cartão de crédito ou dinheiro.
-- Desconto de 10% para pagamento em dinheiro.
-- Redução do estoque após a finalização da compra.
-- Acúmulo do valor das compras por usuário.
-- Concessão do status VIP quando o total acumulado de compras atinge R$ 300,00.
-- Frete grátis para clientes VIP. Para clientes que ainda não são VIP, o frete aplicado pela API é de R$ 20,00.
-- Consulta dos pedidos de um usuário.
+Funcionalidades implementadas
 
-## Tecnologias
+* Listagem de produtos com preço e estoque.
+* Pesquisa de produtos no catálogo.
+* Cadastro de usuários.
+* Login de usuários.
+* Adição e consulta de produtos no carrinho.
+* Remoção de produtos do carrinho.
+* Validação da quantidade solicitada conforme o estoque disponível.
+* Finalização da compra com PIX, cartão de crédito ou dinheiro.
+* Desconto de 10% para pagamento em dinheiro.
+* Redução do estoque após a finalização da compra.
+* Acúmulo do valor das compras por usuário.
+* Concessão do status VIP quando o total acumulado de compras atinge
+R$ 300,00.
+* Frete grátis para clientes VIP.
+* Frete de R$ 20,00 para clientes que ainda não são VIP.
+* Consulta dos pedidos de um usuário.
 
-- Node.js
-- Express
-- HTML, CSS e JavaScript
-- Jest e Supertest (dependências de desenvolvimento para os testes)
-- Swagger / OpenAPI (arquivo `swagger.yaml`)
+Tecnologias utilizadas
 
-## Como executar o projeto
+* Node.js
+* Express
+* MongoDB Memory Server
+* MongoDB
+* HTML
+* CSS
+* JavaScript
+* Swagger / OpenAPI
+* YAML
+
+Jest e Supertest estão presentes como dependências de desenvolvimento.
+
+Como instalar
 
 É necessário ter o Node.js instalado.
 
-1. Abra a pasta do projeto no terminal.
-2. Instale as dependências:
+1. Faça o download ou clone o repositório.
+2. Abra a pasta do projeto no VS Code.
+3. Abra o terminal.
+4. Execute:
 
-   ```bash
-   npm install
-   ```
+npm install
 
-3. Inicie a API:
+Como executar
 
-   ```bash
-   node app.js
-   ```
+Para iniciar a aplicação, execute:
 
-4. Acesse o catálogo no navegador:
+npm start
 
-   `http://localhost:3000`
+A aplicação utiliza a porta 3000.
 
-A API utiliza a porta `3000`.
+Acesse o catálogo pelo navegador:
 
-## Endpoints disponíveis no código da API
+http://localhost:3000
 
-| Método | Rota | Descrição |
-|---|---|---|
-| GET | `/produtos` | Lista os produtos e seus estoques. |
-| POST | `/carrinho` | Adiciona um produto ao carrinho. |
-| GET | `/carrinho/:usuarioId` | Consulta o carrinho de um usuário. |
-| POST | `/finalizar-compra` | Finaliza a compra e aplica as regras comerciais. |
-| GET | `/pedidos/:usuarioId` | Consulta os pedidos de um usuário. |
+Documentação da API
 
-### Exemplo de corpo para adicionar ao carrinho
+A documentação Swagger está disponível nos seguintes endereços:
 
-```json
+* Interface Swagger: http://localhost:3000/api-docs
+* Arquivo YAML: http://localhost:3000/swagger.yaml
+
+Endpoints disponíveis
+
+────────
+
+Método                  Rota                                Descrição
+
+────────
+
+POST                    /cadastro                         Cadastra um usuário.
+
+POST                    /login                            Realiza o login.
+
+GET                     /produtos                         Lista os produtos.
+
+POST                    /carrinho                         Adiciona um produto ao
+carrinho.
+
+GET                     /carrinho/:usuarioId              Consulta o carrinho de
+um usuário.
+
+DELETE                  /carrinho/:usuarioId/:produtoId   Remove um produto do
+carrinho.
+
+POST                    /finalizar-compra                 Finaliza a compra.
+
+GET                     /pedidos/:usuarioId               Consulta os pedidos de um usuário.
+
+Exemplos de requisições
+
+Adicionar produto ao carrinho
+
 {
   "usuarioId": 1,
   "produtoId": 1,
   "quantidade": 1
 }
-```
 
-### Exemplo de corpo para finalizar a compra
+Finalizar compra
 
-```json
 {
   "usuarioId": 1,
   "pagamento": "PIX"
 }
-```
 
-Formas de pagamento aceitas: `PIX`, `Cartão de crédito` e `Dinheiro`.
+Formas de pagamento aceitas: PIX, Cartão de crédito e Dinheiro.
 
-## Regras de negócio
+Regras de negócio
 
-1. Não é permitido adicionar quantidade maior que o estoque disponível.
-2. O pagamento em dinheiro concede 10% de desconto sobre o subtotal dos produtos.
+1. Não é permitido adicionar ao carrinho uma quantidade maior que o
+estoque disponível.
+2. O pagamento em dinheiro concede 10% de desconto sobre o subtotal dos
+produtos.
 3. O cliente se torna VIP ao acumular R$ 300,00 ou mais em compras.
-4. Clientes VIP não pagam frete nas compras seguintes. Clientes não VIP pagam R$ 20,00 de frete.
-5. O estoque é atualizado quando a compra é finalizada com sucesso.
+4. Clientes VIP têm direito a frete grátis.
+5. Clientes que ainda não são VIP pagam R$ 20,00 de frete.
+6. O estoque é atualizado quando a compra é finalizada com sucesso.
 
-## Dados e armazenamento
+Banco de dados e armazenamento
 
-Os produtos, carrinhos, clientes e pedidos são mantidos em memória no próprio processo da API. Portanto, os dados são reiniciados quando o servidor é encerrado ou reiniciado. O projeto não utiliza banco de dados persistente.
+A aplicação utiliza o MongoDB em memória por meio da biblioteca
+mongodb-memory-server.
 
-## Estrutura do projeto
+Os dados são armazenados temporariamente e não são mantidos após o
+encerramento do servidor.
 
-```text
+Estrutura do projeto
+
 Samara-Joias-API/
 ├── app.js
+├── database.js
 ├── package.json
 ├── package-lock.json
 ├── swagger.yaml
+├── README.md
+├── .gitignore
 ├── public/
-│   ├── index.html
-│   ├── script.js
-│   ├── style.css
-│   └── imagens/
+│   └── arquivos do catálogo
 └── tests/
     └── produtos.test.js
-```
 
-## Testes
+Testes
 
-A pasta `tests` está reservada para os testes automatizados. O arquivo `tests/produtos.test.js` está no projeto, mas ainda precisa receber os casos de teste e ser executado/validado.
+O projeto possui uma pasta tests, com o arquivo produtos.test.js
+reservado para testes automatizados.
 
-Quando os testes forem implementados, execute:
+A implementação e execução dos testes automatizados não fazem parte
+desta etapa da entrega acadêmica.
 
-```bash
-npm test
-```
-
-## Observação sobre a documentação Swagger
-
-O arquivo `swagger.yaml` acompanha o projeto. Antes da entrega final, confira se todas as rotas e operações descritas nele correspondem exatamente às rotas implementadas em `app.js`.
-
-## Autoria
+Autoria
 
 Projeto acadêmico desenvolvido para a Samara Joias.
