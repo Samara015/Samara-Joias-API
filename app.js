@@ -721,28 +721,31 @@ app.use(
 );
 
 // =====================================
-// INICIAR SERVIDOR
 // =====================================
+ // INICIAR SERVIDOR
+ // =====================================
+
+async function iniciarServidor() {
+    try {
+        await conectarBanco();
+
+        await prepararBanco();
+
+        app.listen(PORT, () => {
+            console.log("Servidor rodando em http://localhost:" + PORT);
+            console.log("Documentação Swagger: http://localhost:3000/api-docs");
+            console.log("Arquivo YAML: http://localhost:3000/swagger.yaml");
+        });
+
+    } catch (erro) {
+        console.error("Erro ao iniciar o servidor:", erro);
+    }
+}
 
 if (require.main === module) {
-    async function iniciarServidor() {
-        try {
-            await conectarBanco();
-
-            await prepararBanco();
-
-            app.listen(PORT, () => {
-                console.log("Servidor rodando em http://localhost:" + PORT);
-                console.log("Documentação Swagger: http://localhost:3000/api-docs");
-                console.log("Arquivo YAML: http://localhost:3000/swagger.yaml");
-            });
-
-        } catch (erro) {
-            console.error("Erro ao iniciar o servidor:", erro);
-        }
-    }
-
     iniciarServidor();
 }
+
+app.prepararBanco = prepararBanco;
 
 module.exports = app;

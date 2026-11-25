@@ -149,14 +149,17 @@ Samara-Joias-API/
 └── tests/
     └── produtos.test.js
 
-Testes
+## Testes
 
-O projeto possui uma pasta tests, com o arquivo produtos.test.js
-reservado para testes automatizados.
+Foram realizados 47 cenários de testes manuais, contemplando as funcionalidades e regras de negócio da aplicação.
 
-A implementação e execução dos testes automatizados não fazem parte
-desta etapa da entrega acadêmica.
+Também foi executado um teste automatizado utilizando Jest.
 
-Autoria
+*Resultado do teste automatizado:*
+- Suítes aprovadas: 1
+- Testes aprovados: 1
+- Testes com falha: 0
 
-Projeto acadêmico desenvolvido para a Samara Joias.
+O teste automatizado está localizado em tests/produtos.test.js.
+
+A documentação dos testes manuais e automatizados está na pasta documentacao-testes.

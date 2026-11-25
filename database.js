@@ -29,7 +29,22 @@ function obterBanco() {
     return db;
 }
 
+async function fecharBanco() {
+    if (client) {
+        await client.close();
+        client = null;
+    }
+
+    if (mongoServer) {
+        await mongoServer.stop();
+        mongoServer = null;
+    }
+
+    db = null;
+}
+
 module.exports = {
     conectarBanco,
-    obterBanco
+    obterBanco,
+    fecharBanco
 };
